@@ -1,0 +1,8 @@
+.idea
+.venv
+__pycache__/
+handlers/__pycache__/
+dtatbot.db
+const
+.env
+media
