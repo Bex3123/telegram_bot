@@ -4,7 +4,9 @@ from aiogram.utils.deep_linking import _create_link
 import sqlite3
 from database import db
 from buttons import inlinebuttons
-async def start(m:types.Message):
+
+
+async def start(m: types.Message):
     data = db.Database()
     command = m.get_full_command()[1]
     if command != '':
@@ -47,9 +49,5 @@ async def start(m:types.Message):
         )
 
 
-
-
-
-
-def register_start(dp:Dispatcher):
+def register_start(dp: Dispatcher):
     dp.register_message_handler(start, commands='start')

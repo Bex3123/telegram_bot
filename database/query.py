@@ -1,4 +1,4 @@
-CREATE_TG_USER_TABLE="""CREATE TABLE IF NOT EXISTS telegram_users(
+CREATE_TG_USER_TABLE = """CREATE TABLE IF NOT EXISTS telegram_users(
 id INTEGER PRIMARY KEY,
 telegram_user_id INTEGER,
 first_name CHAR(20),
@@ -12,8 +12,7 @@ ALTER_B_USER_TABLE = """
 ALTER TABLE telegram_users ADD COLUMN BALANCE INTEGER
 """
 
-
-INSERT_TG_USER_TABLE="""INSERT OR IGNORE INTO telegram_users VALUES (?,?,?,?,?)"""
+INSERT_TG_USER_TABLE = """INSERT OR IGNORE INTO telegram_users VALUES (?,?,?,?,?)"""
 
 CREATE_ANSWER_TABLE = '''
 CREATE TABLE IF NOT EXISTS answers(
@@ -83,7 +82,6 @@ SELECT tg_id,nickname,biography,age,zodiac,gender,best_color,photo FROM register
 SELECT_ALL_INFO_REGISTER_TABLE = '''
 SELECT * FROM registers'''
 
-
 CREATE_LIKE_DISLIKE_TABLE = '''
 CREATE TABLE IF NOT EXISTS like_dislike(
 ID INTEGER PRIMARY KEY,
@@ -101,7 +99,6 @@ LEFT JOIN like_dislike ON registers.tg_id = like_dislike.user_tg_id
 AND like_dislike.liker_tg_id = ?
 WHERE like_dislike.ID IS NULL
 AND registers.tg_id != ?'''
-
 
 CREATE_REFERRAL_TABLE = """
 CREATE TABLE IF NOT EXISTS referral 
@@ -146,12 +143,10 @@ SELECT REFERRAL_TG_ID FROM referral WHERE OWNER_TG_ID=?'''
 SELECT_BALANCE_TL_USERS = '''
 SELECT COALESCE(BALANCE,0) FROM telegram_users WHERE telegram_user_id=?'''
 
-
 CREATE_ENGLISH_LEVEL_LEARN_TABLE = '''CREATE TABLE IF NOT EXISTS eng_level_table(
 id INTEGER PRIMARY KEY,
 link TEXT,
 UNIQUE(link))'''
-
 
 INSERT_ENGLISH_LEVEL_LEARN_TABLE = '''INSERT OR IGNORE INTO eng_level_table VALUES (?,?)'''
 

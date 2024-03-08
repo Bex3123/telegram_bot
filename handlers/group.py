@@ -1,5 +1,5 @@
 from aiogram import types, Dispatcher
-from config import bot,chat_id,chat_id1
+from config import bot, chat_id, chat_id1
 from database import db
 from profanity_check import predict_prob
 
@@ -11,8 +11,8 @@ async def group_filter_message(m: types.Message):
     if bad_word > 0.7:
         datab.inseert_ban(tg_id=m.from_user.id, first_name=m.from_user.first_name)
         datab.update_count_bun_table(tg_id=m.from_user.id)
-        countt = datab.select_count_bun_table(tg_id=m.from_user.id)
-        count = countt[0]
+        count = datab.select_count_bun_table(tg_id=m.from_user.id)
+        count = count[0]
         await m.delete()
         if count < 3:
             await bot.send_message(
@@ -40,8 +40,5 @@ async def group_filter_message(m: types.Message):
             )
 
 
-
-
-
 def register_group_filter(dp: Dispatcher):
-    dp.register_message_handler(group_filter_message,lambda m: m.chat.id in [int(chat_id1),int(chat_id)])
+    dp.register_message_handler(group_filter_message, lambda m: m.chat.id in [int(chat_id1), int(chat_id)])

@@ -9,14 +9,12 @@ from database import db
 from buttons import inlinebuttons
 
 
-
-
 async def view_random_profile(call: types.CallbackQuery):
-    data=db.Database()
-    prof=data.select_all_registr(tg_id=call.from_user.id)
+    data = db.Database()
+    prof = data.select_all_registr(tg_id=call.from_user.id)
     if prof:
-        rand=choice(prof)[:9]
-        with open(rand[-1],'rb') as photo:
+        rand = choice(prof)[:9]
+        with open(rand[-1], 'rb') as photo:
             await bot.send_photo(
                 chat_id=call.from_user.id,
                 photo=photo,
@@ -28,15 +26,17 @@ async def view_random_profile(call: types.CallbackQuery):
                     gender=rand[6],
                     bestcolor=rand[7]
                 ),
-                reply_markup= await inlinebuttons.like_dislike(rand[1])
+                reply_markup=await inlinebuttons.like_dislike(rand[1])
             )
     else:
         await bot.send_message(
             chat_id=call.from_user.id, text='Nobody left'
         )
+
+
 async def like_dislike_management(call: types.CallbackQuery):
-    data=db.Database()
-    calldata=call.data.split("_")
+    data = db.Database()
+    calldata = call.data.split("_")
     try:
         data.insert_like_dislike_table(
             user=calldata[1],
@@ -52,7 +52,8 @@ async def like_dislike_management(call: types.CallbackQuery):
         await call.message.delete()
         await view_random_profile(call=call)
 
+
 def registr_edit_profile(dp: Dispatcher):
-    dp.register_callback_query_handler(view_random_profile, lambda call:call.data=='view')
+    dp.register_callback_query_handler(view_random_profile, lambda call: call.data == 'view')
     dp.register_callback_query_handler(like_dislike_management, lambda call: 'Like' in call.data)
     dp.register_callback_query_handler(like_dislike_management, lambda call: 'Dis' in call.data)
